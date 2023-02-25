@@ -1,6 +1,6 @@
 import React from 'react'
 import ThreeScene from '../components/ThreeScene'
-import { loadScene } from '../examples/threeAnimation'
+import { loadScene } from '../examples/threejs/animation'
 
 export interface AnimationProps {}
 
