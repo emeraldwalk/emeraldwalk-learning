@@ -3,15 +3,17 @@ import * as THREE from 'three'
 export class World {
   constructor(container: HTMLElement) {
     this.camera = new THREE.PerspectiveCamera(
-      60,
+      75,
       container.clientWidth / container.clientHeight,
-      1,
-      10000,
+      0.1,
+      1000,
     )
+    this.camera.position.set(-1.5, 1.5, 6.5)
 
     this.scene = new THREE.Scene()
+    this.scene.background = new THREE.Color('skyblue')
 
-    this.renderer = new THREE.WebGLRenderer()
+    this.renderer = new THREE.WebGLRenderer({ antialias: true })
     this.renderer.setSize(container.clientWidth, container.clientHeight)
     container.append(this.renderer.domElement)
   }

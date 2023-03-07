@@ -9,6 +9,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
     <header>
       <Link href="/">🏡</Link>
       <Link href="/animation">Animation</Link>
+      <Link href="/css-grid">CSS Grid</Link>
     </header>
     <main>{children}</main>
     <footer>&copy; 2023 emeraldwalk</footer>
