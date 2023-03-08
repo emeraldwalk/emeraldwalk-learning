@@ -7,6 +7,16 @@ export async function loadScene(container: HTMLElement): Promise<() => void> {
   const world = new World(container)
 
   const loader = new GLTFLoader()
+
+  const cubeGeometry = new THREE.BoxGeometry(1, 1)
+  const cubeMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+  })
+  const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
+  world.scene.add(cube)
+
+  // parrot
   const parrotData = await loader.loadAsync('/assets/threejs/Parrot.glb')
   const parrotObject = parrotData.scene.children[0]
   parrotObject.position.set(0, 0, 2.5)
@@ -31,7 +41,31 @@ export async function loadScene(container: HTMLElement): Promise<() => void> {
   const orbit = new OrbitControls(world.camera, world.renderer.domElement)
   orbit.target.copy(parrotObject.position)
 
-  world.start()
+  // animation
+  const moveAndBlinkClip = createMoveAndBlinkClip()
+  const mixer = new THREE.AnimationMixer(cube)
+  const action = mixer.clipAction(moveAndBlinkClip)
+  action.play()
+
+  // const tickers: { tick: (delta: number) => void }[] = []
+  const tickers = [{ tick: (delta: number) => mixer.update(delta) }]
+  world.start(tickers)
 
   return world.dispose
+}
+
+function createMoveAndBlinkClip() {
+  const positionKFT = new THREE.VectorKeyframeTrack(
+    '.position',
+    [0, 3, 6],
+    [0, 0, 0, 2, 2, 2, 0, 0, 0],
+  )
+
+  const opacityKFT = new THREE.NumberKeyframeTrack(
+    '.material.opacity',
+    [0, 1, 2, 3, 4, 5, 6],
+    [0, 1, 0, 1, 0, 1, 0],
+  )
+
+  return new THREE.AnimationClip('moveAndBlink', -1, [positionKFT, opacityKFT])
 }

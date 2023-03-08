@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 export class World {
   constructor(container: HTMLElement) {
+    this.clock = new THREE.Clock()
     this.camera = new THREE.PerspectiveCamera(
       75,
       container.clientWidth / container.clientHeight,
@@ -18,12 +19,17 @@ export class World {
     container.append(this.renderer.domElement)
   }
 
+  clock: THREE.Clock
   camera: THREE.PerspectiveCamera
   scene: THREE.Scene
   renderer: THREE.WebGLRenderer
 
-  start = () => {
+  start = (tickers: { tick: (delta: number) => void }[]) => {
     this.renderer.setAnimationLoop(() => {
+      const delta = this.clock.getDelta()
+      tickers.forEach((ticker) => {
+        ticker.tick(delta)
+      })
       this.renderer.render(this.scene, this.camera)
     })
   }
