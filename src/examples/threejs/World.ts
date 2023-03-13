@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { DeltaHandler } from './utils'
 
 export class World {
   constructor(container: HTMLElement) {
@@ -9,7 +10,7 @@ export class World {
       0.1,
       1000,
     )
-    this.camera.position.set(-1.5, 1.5, 6.5)
+    // this.camera.position.set(-1.5, 1.5, 6.5)
 
     this.scene = new THREE.Scene()
     this.scene.background = new THREE.Color('skyblue')
@@ -24,7 +25,7 @@ export class World {
   scene: THREE.Scene
   renderer: THREE.WebGLRenderer
 
-  start = (tickers: { tick: (delta: number) => void }[]) => {
+  start = (tickers: { tick: DeltaHandler }[]) => {
     this.renderer.setAnimationLoop(() => {
       const delta = this.clock.getDelta()
       tickers.forEach((ticker) => {

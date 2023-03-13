@@ -2,9 +2,16 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { World } from './World'
+import {
+  addGridHelper,
+  addLights,
+  addOrbitControls,
+  createTickers,
+} from './utils'
 
 export async function loadScene(container: HTMLElement): Promise<() => void> {
   const world = new World(container)
+  world.camera.position.set(-1.5, 1.5, 6.5)
 
   const loader = new GLTFLoader()
 
@@ -18,28 +25,24 @@ export async function loadScene(container: HTMLElement): Promise<() => void> {
 
   // parrot
   const parrotData = await loader.loadAsync('/assets/threejs/Parrot.glb')
-  const parrotObject = parrotData.scene.children[0]
-  parrotObject.position.set(0, 0, 2.5)
+  const parrotModel = parrotData.scene.children[0]
+  const parrotClip = parrotData.animations[0]
+  const parrotMixer = new THREE.AnimationMixer(parrotModel)
+  const parrotAction = parrotMixer.clipAction(parrotClip)
+  parrotAction.play()
+  parrotModel.position.set(0, 0, 2.5)
   console.log('parrotData:', parrotData)
 
-  world.scene.add(parrotObject)
+  world.scene.add(parrotModel)
 
-  // lights
-  const ambientLight = new THREE.HemisphereLight('white', 'darkslategrey', 5)
-  const mainLight = new THREE.DirectionalLight('white', 4)
-  mainLight.position.set(10, 10, 10)
-  world.scene.add(ambientLight, mainLight)
-
-  // grid helper
-  const gridHelper = new THREE.GridHelper(20, 20)
-  gridHelper.position.setX(-0.5)
-  gridHelper.position.setY(-0.5)
-  gridHelper.rotateX(Math.PI / 2)
-  world.scene.add(gridHelper)
-
-  // orbit controls
-  const orbit = new OrbitControls(world.camera, world.renderer.domElement)
-  orbit.target.copy(parrotObject.position)
+  // Lights
+  addGridHelper(world.scene)
+  addLights(world.scene)
+  addOrbitControls(
+    world.camera,
+    world.renderer.domElement,
+    parrotModel.position,
+  )
 
   // animation
   const moveAndBlinkClip = createMoveAndBlinkClip()
@@ -47,9 +50,7 @@ export async function loadScene(container: HTMLElement): Promise<() => void> {
   const action = mixer.clipAction(moveAndBlinkClip)
   action.play()
 
-  // const tickers: { tick: (delta: number) => void }[] = []
-  const tickers = [{ tick: (delta: number) => mixer.update(delta) }]
-  world.start(tickers)
+  world.start(createTickers(mixer, parrotMixer))
 
   return world.dispose
 }
