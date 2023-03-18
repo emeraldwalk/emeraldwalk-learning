@@ -1,0 +1,7 @@
+import React from 'react'
+import ThreeScene from '../components/ThreeScene'
+import { loadScene } from '../examples/threejs/animation'
+import { getStaticPropsWithTitle } from '../utils/pages'
+export const getStaticProps = getStaticPropsWithTitle('Animation')
+
+<ThreeScene load={loadScene} />

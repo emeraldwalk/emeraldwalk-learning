@@ -1,0 +1,6 @@
+import ThreeScene from '@/components/ThreeScene'
+import { loadScene } from '../examples/threejs/character-animation'
+import { getStaticPropsWithTitle } from '../utils/pages'
+export const getStaticProps = getStaticPropsWithTitle('Character Animation')
+
+<ThreeScene load={loadScene} />
