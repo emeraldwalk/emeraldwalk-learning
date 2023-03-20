@@ -1,12 +1,14 @@
 import React from 'react'
 import { AreaGrid, SimpleGrid } from '@/components/CssGrid'
 
-import { getStaticPropsWithMeta } from '../utils/pages'
 export const meta = {
   title: 'CSS Grid',
   date: '2023-03-19',
 }
-export const getStaticProps = getStaticPropsWithMeta(meta)
+
+export function getStaticProps() {
+  return { props: { meta } }
+}
 
 Experimenting with CSS Grid
 

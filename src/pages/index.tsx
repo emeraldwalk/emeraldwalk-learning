@@ -3,12 +3,14 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 // import styles from '@/styles/Home.module.css'
 
-import { getStaticPropsWithMeta } from '../utils/pages'
 export const meta = {
   title: 'Home',
   date: '2023-03-19',
 }
-export const getStaticProps = getStaticPropsWithMeta(meta)
+
+export function getStaticProps() {
+  return { props: { meta } }
+}
 
 const inter = Inter({ subsets: ['latin'] })
 
