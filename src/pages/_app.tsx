@@ -5,7 +5,7 @@ import { PageProps } from '../models/page'
 
 export default function App({ Component, pageProps }: AppProps<PageProps>) {
   return (
-    <Layout title={pageProps.title} metaList={pageProps.metaList}>
+    <Layout meta={pageProps.meta}>
       <Component {...pageProps} />
     </Layout>
   )

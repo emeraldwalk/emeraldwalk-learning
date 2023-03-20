@@ -1,6 +1,11 @@
 import ThreeScene from '@/components/ThreeScene'
 import { loadScene } from '@/examples/threejs/animation'
-import { getStaticPropsWithTitle } from '../utils/pages'
-export const getStaticProps = getStaticPropsWithTitle('Three.js Animation')
+
+import { getStaticPropsWithMeta } from '../utils/pages'
+export const meta = {
+  title: 'Three.js Animation',
+  date: '2023-03-19',
+}
+export const getStaticProps = getStaticPropsWithMeta(meta)
 
 <ThreeScene load={loadScene} />

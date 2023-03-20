@@ -1,9 +1,11 @@
 export interface Meta {
-  title: string
-  slug: string
+  title?: string
+  author?: string
+  slug?: string
+  ext?: string
+  createdAt?: string
 }
 
 export interface PageProps {
-  title?: string
-  metaList?: Meta[]
+  meta?: Meta
 }
