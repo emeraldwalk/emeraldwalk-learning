@@ -24,14 +24,16 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   return (
     <>
       <Head>
-        <title>{meta?.title}</title>
+        <title>{meta?.title} | Emeraldwalk Learning</title>
       </Head>
       <div className={cl(styles.container, styles.areaGrid)}>
-        <header className={styles.itemHeader}>
-          <Link href="/">🏡</Link>
+        <header className={cl(styles.itemHeader, styles.content)}>
+          <Link href="/">🏡 Emeraldwalk Learning</Link>
         </header>
-        <h1 className={styles.itemTitle}>{meta?.title}</h1>
-        <main className={styles.itemMain}>{children}</main>
+        <main className={cl(styles.itemMain, styles.content)}>
+          <h1>{meta?.title}</h1>
+          {children}
+        </main>
         <aside className={styles.itemSide}>
           {pageLinks?.map(({ slug, title }) => (
             <Link key={slug} href={`/${slug}`}>
@@ -39,7 +41,9 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
             </Link>
           ))}
         </aside>
-        <footer className={styles.itemFooter}>&copy; 2023 emeraldwalk</footer>
+        <footer className={cl(styles.itemFooter, styles.content)}>
+          &copy; 2023 emeraldwalk
+        </footer>
       </div>
     </>
   )
