@@ -20,7 +20,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ load }) => {
     }
   }, [load])
 
-  return <div ref={containerRef} style={{ width: 800, height: 600 }}></div>
+  return <div ref={containerRef} style={{ width: 400, height: 400 }}></div>
 }
 
 export default ThreeScene
