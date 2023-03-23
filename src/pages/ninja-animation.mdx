@@ -1,0 +1,18 @@
+import ThreeScene from '@/components/ThreeScene'
+import { createLoadModel } from '@/examples/threejs/utils'
+
+export const meta = {
+  title: 'Ninja Animation',
+  date: '2023-03-20',
+}
+
+export function getStaticProps() {
+  return { props: { meta } }
+}
+
+<ThreeScene
+  load={createLoadModel({
+    modelUrl: '/assets/emeraldwalk/walking.fbx',
+    cameraPosition: [0, 1.5, 6.5],
+  })}
+/>

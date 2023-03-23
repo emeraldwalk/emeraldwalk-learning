@@ -30,6 +30,13 @@ export const metaList = [
   },
   {
     "author": "Brian Ingles",
+    "slug": "ninja-animation",
+    "ext": "mdx",
+    "title": "Ninja Animation",
+    "date": "2023-03-20"
+  },
+  {
+    "author": "Brian Ingles",
     "slug": "threejs-animation",
     "ext": "mdx",
     "title": "Three.js Animation",

@@ -24,7 +24,7 @@ const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   return (
     <>
       <Head>
-        <title>{meta?.title} | Emeraldwalk Learning</title>
+        <title>{`${meta?.title} | Emeraldwalk Learning`}</title>
       </Head>
       <div className={cl(styles.container, styles.areaGrid)}>
         <header className={cl(styles.itemHeader, styles.content)}>
